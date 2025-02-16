@@ -4,63 +4,44 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  {{ form.media }}
-  <form class="max-w-xl mx-auto my-6 space-y-5" action="{% url 'create-post' %}" method="post">
-    {% csrf_token %}
+{{ form.media }}
+<form class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 space-y-5" action="{% url 'create-post' %}" method="post">
+  {% csrf_token %}
 
-    <!-- Blog Title -->
-    <div>
-      <label for="id_title" class="block text-sm font-medium text-gray-900 dark:text-white">Blog Title</label>
-      <input 
-        type="text" 
-        id="id_title" 
-        name="title" 
-        class="form-input"
-        placeholder="Post title..." 
-        required 
-      />
-    </div>
+  <!-- Blog Title -->
+  <div>
+    <label for="id_title" class="block text-sm font-medium text-gray-900 dark:text-white">Blog Title</label>
+    <input type="text" id="id_title" name="title" class="form-input" placeholder="Post title..." required />
+  </div>
 
-    <!-- Blog Body (CKEditor) -->
-    <div>
-      <label for="id_body" class="block text-sm font-medium text-gray-900 dark:text-white">Blog Body</label>
-      {{ form.content }}
-      <span class="word-count" id="id_body_script-word-count"></span>
-    </div>
+  <!-- Blog Body (CKEditor) -->
+  <div>
+    <label for="id_body" class="block text-sm font-medium text-gray-900 dark:text-white">Blog Body</label>
+    {{ form.content }}
+    <span class="word-count" id="id_body_script-word-count"></span>
+  </div>
 
-    <!-- Hidden CKEditor Upload Config -->
-    <input 
-      type="hidden" 
-      id="id_body_script-ck-editor-5-upload-url" 
-      data-upload-url="/ckeditor5/image_upload/" 
-      data-upload-file-types='["jpeg", "png", "gif", "bmp", "webp", "tiff"]' 
-      data-csrf_cookie_name="csrftoken" 
-    />
+  <!-- Hidden CKEditor Upload Config -->
+  <input type="hidden" id="id_body_script-ck-editor-5-upload-url" data-upload-url="/ckeditor5/image_upload/"
+    data-upload-file-types='["jpeg", "png", "gif", "bmp", "webp", "tiff"]' data-csrf_cookie_name="csrftoken" />
 
-    <!-- CKEditor Toolbar Config -->
-    <script id="id_body_script" type="application/json">
+  <!-- CKEditor Toolbar Config -->
+  <script id="id_body_script" type="application/json">
       { "toolbar": ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "blockQuote", "imageUpload"] }
     </script>
 
-    <!-- Status Dropdown -->
-    <div>
-      <label for="id_status" class="block text-sm font-medium text-gray-900 dark:text-white">Status</label>
-      <select 
-        id="id_status" 
-        name="status" 
-        class="form-input"
-      >
-        <option value="DF" selected>Draft</option>
-        <option value="PB">Published</option>
-      </select>
-    </div>
+  <!-- Status Dropdown -->
+  <div>
+    <label for="id_status" class="block text-sm font-medium text-gray-900 dark:text-white">Status</label>
+    <select id="id_status" name="status" class="form-input">
+      <option value="DF" selected>Draft</option>
+      <option value="PB">Published</option>
+    </select>
+  </div>
 
-    <!-- Submit Button -->
-    <button 
-      type="submit" 
-      class="form-button"
-    >
-      Create Post
-    </button>
-  </form>
+  <!-- Submit Button -->
+  <button type="submit" class="form-button">
+    Create Post
+  </button>
+</form>
 {% endblock %}

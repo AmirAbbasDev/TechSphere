@@ -1,86 +1,88 @@
 {% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>
-      {% block title %}
-        TechSphere
+
+<head>
+  <title>
+    {% block title %}
+    TechSphere
+    {% endblock %}
+  </title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  {% tailwind_css %}
+
+  {% block header %}
+
+  {% endblock %}
+
+  {% block style %}
+
+  {% endblock %}
+</head>
+
+<body class="bg-gray-50 leading-normal tracking-normal">
+  {% block navbar %}
+  {% include 'shared/navbar.html' %}
+  {% endblock %}
+
+  {% block content %}
+  <!-- Main Container -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Main Content (Left) -->
+    <main class="md:col-span-2 flex flex-col justify-center items-center min-h-screen gap-6">
+      {% block main %}
+
       {% endblock %}
-    </title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    {% tailwind_css %}
+    </main>
 
-    {% block header %}
+    <!-- Sidebar (Right) -->
+    <aside class="">
+      {% block sidebar %}
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Categories</h2>
+      <ul class="space-y-2">
+        <li>
+          <a href="#" class="text-blue-600 hover:underline">Web Development</a>
+        </li>
+        <li>
+          <a href="#" class="text-blue-600 hover:underline">Django & Python</a>
+        </li>
+        <li>
+          <a href="#" class="text-blue-600 hover:underline">Tailwind CSS</a>
+        </li>
+        <li>
+          <a href="#" class="text-blue-600 hover:underline">SEO & Marketing</a>
+        </li>
+      </ul>
 
-    {% endblock %}
+      <h2 class="text-xl font-bold text-gray-800 mt-6 mb-4">Popular Posts</h2>
+      <ul class="space-y-3">
+        <li class="border-b pb-2">
+          <a href="#" class="text-blue-500 font-semibold hover:underline">Top 10 Tailwind CSS Tricks</a>
+        </li>
+        <li class="border-b pb-2">
+          <a href="#" class="text-blue-500 font-semibold hover:underline">How to Deploy a Django App</a>
+        </li>
+        <li>
+          <a href="#" class="text-blue-500 font-semibold hover:underline">Mastering Python for Backend Development</a>
+        </li>
+      </ul>
+      {% endblock %}
+    </aside>
+  </div>
+  {% endblock %}
 
-    {% block style %}
+  {% block footer %}
+  {% include 'shared/footer.html' %}
+  {% endblock %}
 
-    {% endblock %}
-  </head>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.js"></script>
+  <script src="{% static 'assets/js/script.js' %}"></script>
 
-  <body class="bg-gray-50 leading-normal tracking-normal">
-    {% block navbar %}
-      {% include 'shared/navbar.html' %}
-    {% endblock %}
+  {% block script %}
 
-    {% block content %}
-      <!-- Main Container -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Main Content (Left) -->
-        <main class="md:col-span-2 flex flex-col justify-center items-center min-h-screen p-4 gap-6">
-          {% block main %}
+  {% endblock %}
+</body>
 
-          {% endblock %}
-        </main>
-
-        <!-- Sidebar (Right) -->
-        <aside class="p-6">
-          {% block sidebar %}
-            <h2 class="text-xl font-bold text-gray-800 mb-4">Categories</h2>
-            <ul class="space-y-2">
-              <li>
-                <a href="#" class="text-blue-600 hover:underline">Web Development</a>
-              </li>
-              <li>
-                <a href="#" class="text-blue-600 hover:underline">Django & Python</a>
-              </li>
-              <li>
-                <a href="#" class="text-blue-600 hover:underline">Tailwind CSS</a>
-              </li>
-              <li>
-                <a href="#" class="text-blue-600 hover:underline">SEO & Marketing</a>
-              </li>
-            </ul>
-
-            <h2 class="text-xl font-bold text-gray-800 mt-6 mb-4">Popular Posts</h2>
-            <ul class="space-y-3">
-              <li class="border-b pb-2">
-                <a href="#" class="text-blue-500 font-semibold hover:underline">Top 10 Tailwind CSS Tricks</a>
-              </li>
-              <li class="border-b pb-2">
-                <a href="#" class="text-blue-500 font-semibold hover:underline">How to Deploy a Django App</a>
-              </li>
-              <li>
-                <a href="#" class="text-blue-500 font-semibold hover:underline">Mastering Python for Backend Development</a>
-              </li>
-            </ul>
-          {% endblock %}
-        </aside>
-      </div>
-    {% endblock %}
-
-    {% block footer %}
-      {% include 'shared/footer.html' %}
-    {% endblock %}
-
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.js"></script>
-    <script src="{% static 'assets/js/script.js' %}"></script>
-
-    {% block script %}
-
-    {% endblock %}
-  </body>
 </html>
