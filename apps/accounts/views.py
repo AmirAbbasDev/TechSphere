@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 
 
-def register(request):
+def register_view(request):
     if request.user.is_authenticated:
         return redirect(reverse("home"))
 

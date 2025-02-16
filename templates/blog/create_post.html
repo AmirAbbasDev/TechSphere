@@ -10,13 +10,13 @@
 
   <!-- Blog Title -->
   <div>
-    <label for="id_title" class="block text-sm font-medium text-gray-900 dark:text-white">Blog Title</label>
+    <label for="id_title" class="form-label">Blog Title</label>
     <input type="text" id="id_title" name="title" class="form-input" placeholder="Post title..." required />
   </div>
 
   <!-- Blog Body (CKEditor) -->
   <div>
-    <label for="id_body" class="block text-sm font-medium text-gray-900 dark:text-white">Blog Body</label>
+    <label for="id_body" class="form-label">Blog Body</label>
     {{ form.content }}
     <span class="word-count" id="id_body_script-word-count"></span>
   </div>
@@ -32,7 +32,7 @@
 
   <!-- Status Dropdown -->
   <div>
-    <label for="id_status" class="block text-sm font-medium text-gray-900 dark:text-white">Status</label>
+    <label for="id_status" class="form-label">Status</label>
     <select id="id_status" name="status" class="form-input">
       <option value="DF" selected>Draft</option>
       <option value="PB">Published</option>
