@@ -14,10 +14,13 @@ import os
 from pathlib import Path
 from shutil import which
 
+import sys
 from dotenv import load_dotenv
+from .ckeditor_5_config import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(os.path.join(BASE_DIR, "apps"))
 
 
 # Quick-start development settings - unsuitable for production
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_ckeditor_5",
     "tailwind",
     "theme",
     "django_browser_reload",
@@ -140,6 +144,8 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRs = [BASE_DIR / "static"]
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # TailwindCSS
 # https://django-tailwind.readthedocs.io/en/latest/installation.html
