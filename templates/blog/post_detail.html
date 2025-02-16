@@ -1,32 +1,46 @@
 {% extends 'base.html' %}
 {% load static tailwind_tags %}
 
-{% block title %}
-  {{ post.title }}
-{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block header %}
-  {{ form.media }}
+{{ form.media }}
 {% endblock %}
 
 {% block style %}
-  <link rel="stylesheet" href="{% static 'assets/css/article_detail.css' %}" />
+<link rel="stylesheet" href="{% static 'assets/css/article_detail.css' %}" />
 {% endblock %}
 
 {% block main %}
-  <div class="mx-auto">
-    <!-- Author and Date Section -->
-    {% include 'blog/partials/author_info.html' with author=post.author publish_date=post.publish %}
+<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+  <!-- Author and Date Section -->
+  {% include 'blog/partials/author_info.html' with author=post.author publish_date=post.publish %}
 
-    <!-- Post Title and Body -->
-    <h2 class="text-4xl font-extrabold dark:text-white mb-2">{{ post.title }}</h2>
+  <!-- Post Title -->
+  <h1 class="text-4xl font-extrabold dark:text-white mb-6">
+    {{ post.title }}
+  </h1>
 
-    <!-- Post Image with Lazy Loading -->
-    {% include 'blog/partials/post_image.html' with image_url='https://images.pexels.com/photos/842548/pexels-photo-842548.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' alt_text=post.title %}
+  <!-- Post Image with Lazy Loading -->
+  <!-- {% include 'blog/partials/post_image.html' with
+  image_url='https://images.pexels.com/photos/842548/pexels-photo-842548.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+  alt_text=post.title
+  %} -->
 
-    <article class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">{{ post.body|safe }}</article>
-
-    <!-- Comments Section -->
-    {% include 'blog/partials/comments.html' %}
+  <div class="flex justify-center">
+    <figure class="max-w-full mb-6">
+      <img class="w-full h-auto max-w-xl rounded-lg mx-auto aspect-video object-cover shadow-md"
+        src="https://images.pexels.com/photos/842548/pexels-photo-842548.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        alt="{% if alt_text %}{{ blog.slug }}{% else %}Blog post image{% endif %}" loading="lazy" />
+    </figure>
   </div>
+
+  <!-- Post Content -->
+  <article class="prose dark:prose-invert max-w-none mb-8">
+    {{ post.content|safe }}
+  </article>
+
+  <!-- Comments Section -->
+  {% include 'blog/partials/comments.html' %}
+</div>
 {% endblock %}

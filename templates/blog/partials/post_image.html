@@ -1,3 +1,8 @@
-<figure class="max-w-full mb-6">
-  <img class="w-full h-auto max-w-xl rounded-lg mx-auto" src="{{ image_url }}" alt="{{ alt_text }}" loading="lazy" />
-</figure>
+{% load static tailwind_tags %}
+
+<div class="flex justify-center">
+  <figure class="max-w-full mb-6">
+    <img class="w-full h-auto max-w-xl rounded-lg mx-auto aspect-video object-cover shadow-md" src="{{ image_url }}"
+      alt="{% if alt_text %}{{ alt_text }}{% else %}Blog post image{% endif %}" loading="lazy" />
+  </figure>
+</div>

@@ -1,0 +1,40 @@
+/* Code Container */
+.code-container {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+/* Copy Button */
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #3B82F6;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background-color 0.3s;
+}
+
+.copy-button:hover {
+    background-color: #2563EB;
+}
+
+/* Code Blocks */
+article pre {
+    background-color: #1F2937;
+    color: #F3F4F6;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+article pre code {
+    background-color: transparent;
+    padding: 0;
+    font-size: 0.875rem;
+}

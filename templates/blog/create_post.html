@@ -1,39 +1,66 @@
 {% extends 'base.html' %}
 {% load static tailwind_tags %}
 
-{% block title %}
-  Home
-{% endblock %}
+{% block title %}Home{% endblock %}
 
-{% block header %}
-
-{% endblock %}
 {% block content %}
   {{ form.media }}
-  <form class="max-w-xl mx-auto my-6" action="{% url 'create-post' %}" method="post">
+  <form class="max-w-xl mx-auto my-6 space-y-5" action="{% url 'create-post' %}" method="post">
     {% csrf_token %}
-    {% comment %} {{ form.as_div }} {% endcomment %}
-    <div class="mb-5">
-      <label for="id_title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blog Tile</label>
-      <input type="text" id="id_title" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Post tile..." required />
+
+    <!-- Blog Title -->
+    <div>
+      <label for="id_title" class="block text-sm font-medium text-gray-900 dark:text-white">Blog Title</label>
+      <input 
+        type="text" 
+        id="id_title" 
+        name="title" 
+        class="form-input"
+        placeholder="Post title..." 
+        required 
+      />
     </div>
-    <div class="ck-editor-container mb-5">
-      <label for="id_body" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blog Body</label>
-      {{ form.body }}
-      {% comment %} <textarea id="id_body" name="body" rows="10" class="django_ckeditor_5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Post body..." required></textarea> {% endcomment %}
+
+    <!-- Blog Body (CKEditor) -->
+    <div>
+      <label for="id_body" class="block text-sm font-medium text-gray-900 dark:text-white">Blog Body</label>
+      {{ form.content }}
       <span class="word-count" id="id_body_script-word-count"></span>
     </div>
-    <input type="hidden" id="id_body_script-ck-editor-5-upload-url" data-upload-url="/ckeditor5/image_upload/" data-upload-file-types="[&quot;jpeg&quot;, &quot;png&quot;, &quot;gif&quot;, &quot;bmp&quot;, &quot;webp&quot;, &quot;tiff&quot;]" data-csrf_cookie_name="csrftoken" />
 
-    <span id="id_body_script-span"><script id="id_body_script" type="application/json">{"toolbar": ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "blockQuote", "imageUpload"]}</script></span>
+    <!-- Hidden CKEditor Upload Config -->
+    <input 
+      type="hidden" 
+      id="id_body_script-ck-editor-5-upload-url" 
+      data-upload-url="/ckeditor5/image_upload/" 
+      data-upload-file-types='["jpeg", "png", "gif", "bmp", "webp", "tiff"]' 
+      data-csrf_cookie_name="csrftoken" 
+    />
 
-    <div class="mb-5">
-      <label for="id_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-      <select id="id_status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <!-- CKEditor Toolbar Config -->
+    <script id="id_body_script" type="application/json">
+      { "toolbar": ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "blockQuote", "imageUpload"] }
+    </script>
+
+    <!-- Status Dropdown -->
+    <div>
+      <label for="id_status" class="block text-sm font-medium text-gray-900 dark:text-white">Status</label>
+      <select 
+        id="id_status" 
+        name="status" 
+        class="form-input"
+      >
         <option value="DF" selected>Draft</option>
         <option value="PB">Published</option>
       </select>
     </div>
-    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Post</button>
+
+    <!-- Submit Button -->
+    <button 
+      type="submit" 
+      class="form-button"
+    >
+      Create Post
+    </button>
   </form>
 {% endblock %}
