@@ -26,7 +26,8 @@ article h4,
 article h5,
 article h6 {
     font-weight: 700;
-    color: #111;
+    color: #25265e;
+    ;
 }
 
 .dark-mode article h1,
@@ -86,12 +87,20 @@ article h6 {
     /* text-lg */
 }
 
+ol,
+li,
+p {
+    color: rgba(37, 38, 94, .7);
+}
+
 /* Paragraph */
 article p {
     margin-bottom: 0.75rem;
     /* mb-3 */
-    color: #6b7280;
-    /* text-gray-500 */
+    color: rgba(37, 38, 94, .7);
+    font-size: 18px;
+    line-height: 30px;
+    margin-bottom: 16px;
 }
 
 .dark-mode article p {
