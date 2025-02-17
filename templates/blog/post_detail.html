@@ -4,14 +4,13 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block header %}
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 {{ form.media }}
 {% endblock %}
-
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/ckeditor_5.css' %}">
 {% endblock style %}
-
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -21,13 +20,15 @@
   </div>
 
   <!-- Blog Title -->
-  <h1 class="text-3xl font-bold text-gray-800">{{ post.title }}</h1>
+  <h1
+    class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+    {{ post.title }}</h1>
 
   <!-- Blog Thumbnail -->
-  <img
+  <!-- <img
     src="https://images.pexels.com/photos/842548/pexels-photo-842548.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     alt="{% if alt_text %}{{ blog.slug }}{% else %}Blog post image{% endif %}" loading="lazy"
-    class="w-full h-64 object-cover mt-4 rounded-lg shadow-md">
+    class="w-full h-64 object-cover mt-4 rounded-lg shadow-md"> -->
   <article id="blog-content" class="mt-6 text-gray-700 leading-relaxed">
     {{ post.content|safe}}
   </article>
@@ -44,3 +45,8 @@
   {% include 'blog/partials/comments.html' %}
 </div>
 {% endblock content %}
+
+
+{% block script %}
+<!-- <script src="{% static 'js/ckeditor_script.js' %}"></script> -->
+{% endblock script %}
