@@ -14,7 +14,7 @@ class PostListView(ListView):
     model = Post
     template_name = "blog/index.html"
     context_object_name = "posts"
-    paginate_by = 9
+    paginate_by = 3
     queryset = Post.published.all()
 
 
