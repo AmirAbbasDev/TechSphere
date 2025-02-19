@@ -1,25 +1,25 @@
 <!-- Navbar -->
-<nav class="bg-white shadow-md">
+<nav class="bg-white shadow-md dark:bg-gray-700">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16">
 
       <!-- Logo -->
       <div class="flex items-center">
-        <a href="{% url 'home' %}" class="text-xl font-bold text-gray-800"><span class="text-blue-700">T</span>ech<span
-            class="text-blue-700">S</span>phere</span></a>
+        <a href="{% url 'home' %}" class="text-xl font-bold text-gray-800 dark:text-white"><span
+            class="text-blue-700">T</span>ech<span class="text-blue-700">S</span>phere</span></a>
       </div>
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-6">
-        <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600">Home</a>
-        <a href="#" class="text-gray-700 hover:text-blue-600">About</a>
-        <a href="#" class="text-gray-700 hover:text-blue-600">Contact</a>
+        <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 dark:text-white">Home</a>
+        <a href="#" class="text-gray-700 hover:text-blue-600 dark:text-white">About</a>
+        <a href="#" class="text-gray-700 hover:text-blue-600 dark:text-white">Contact</a>
       </div>
 
       <!-- Search Bar (Hidden on Small Screens) -->
       <div class="hidden md:flex items-center">
         <input type="text" placeholder="Search..."
-          class="px-3 py-1.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+          class="px-3 py-1.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       </div>
 
       <div class="hidden md:flex items-center space-x-4">

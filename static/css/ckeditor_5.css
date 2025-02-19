@@ -1,33 +1,12 @@
-/* General Styles */
-body {
-    color: #111;
-    /* Equivalent to text-gray-900 */
-    background-color: #fff;
-    /* Equivalent to light mode background */
-}
-
-.dark-mode body {
-    color: #fff;
-    /* Equivalent to text-white */
-    background-color: #111;
-    /* Equivalent to dark mode background */
-}
-
-/* Typography */
-article {
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
 article h1,
 article h2,
 article h3,
 article h4,
 article h5,
 article h6 {
-    font-weight: 700;
     color: #25265e;
-    ;
+    /* color: #fff; */
+    letter-spacing: 2px;
 }
 
 .dark-mode article h1,
@@ -40,35 +19,15 @@ article h6 {
 }
 
 article h1 {
-    margin-bottom: 1rem;
-    font-size: 2.25rem;
-    /* text-4xl */
-    font-weight: 800;
-    /* font-extrabold */
-    line-height: 1.1;
-    /* leading-none */
-    letter-spacing: -0.02em;
-    /* tracking-tight */
-}
-
-@media (min-width: 768px) {
-    article h1 {
-        font-size: 3rem;
-        /* md:text-5xl */
-    }
-}
-
-@media (min-width: 1024px) {
-    article h1 {
-        font-size: 3.75rem;
-        /* lg:text-6xl */
-    }
+    margin-bottom: 20px;
+    font-size: 40px;
+    line-height: 44px;/
 }
 
 article h2 {
-    font-size: 2.25rem;
-    /* text-4xl */
-    font-weight: 800;
+    font-size: 28px;
+    line-height: 42px;
+    margin-bottom: 12px;
 }
 
 article h3,
@@ -91,13 +50,12 @@ ol,
 li,
 p {
     color: rgba(37, 38, 94, .7);
+    /* color: #fff; */
+    letter-spacing: 1.5px;
 }
 
 /* Paragraph */
 article p {
-    margin-bottom: 0.75rem;
-    /* mb-3 */
-    color: rgba(37, 38, 94, .7);
     font-size: 18px;
     line-height: 30px;
     margin-bottom: 16px;
@@ -163,28 +121,24 @@ article td {
     color: #374151;
 }
 
-/* Code Blocks */
+
 article pre {
-    background-color: #1a202c;
-    /* bg-gray-900 */
+    background-color: #383b40;
     color: #fff;
-    /* text-white */
     padding: 1rem;
-    /* p-4 */
     border-radius: 0.375rem;
-    /* rounded-md */
     overflow: auto;
     border: 1px solid #4b5563;
-    /* border-gray-600 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* shadow-lg */
     position: relative;
 }
 
 article code {
     font-family: monospace;
-    color: #00ccff;
-    /* text-green-400 */
+    color: #3fd36b;
+    font-size: 18px;
+    line-height: 30px;
+    margin-bottom: 16px;
 }
 
 /* Figures and Images */
@@ -223,12 +177,21 @@ article a:visited {
     color: #7C3AED;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    article {
-        padding: 1rem;
+@media (min-width: 768px) {
+    article h1 {
+        font-size: 40px;
+        line-height: 60px;
+
     }
 
+    article h2 {
+        font-size: 32px;
+        line-height: 44px;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
     article h1 {
         font-size: 2rem;
     }
