@@ -22,7 +22,7 @@
   <div class="p-5 flex flex-col justify-center">
     <h2 class="text-xl font-semibold text-gray-800">{{ post.title }}</h2>
     <article class="post-body text-gray-600 mt-2">{{ post.content|safe|truncatechars:160 }}</article>
-    <a href="{% url 'post-detail' post.id post.slug %}"
+    <a href="{{ post.get_absolute_url }}"
       class="inline-flex items-center mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition self-start">
       Read More<svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
         fill="none" viewBox="0 0 14 10">

@@ -40,8 +40,15 @@ def generate_slug_from_title(form, post):
     post.slug = slug.lower()
 
 
-def article_detail_view(request, id, slug):
-    post = get_object_or_404(Post, id=id)
+def article_detail_view(request, year, month, day, post):
+    post = get_object_or_404(
+        Post,
+        status=Post.Status.PUBLISHED,
+        slug=post,
+        publish__year=year,
+        publish__month=month,
+        publish__day=day,
+    )
     form = CommentForm()
     comments = Comment.objects.filter(post=post)
     add_comment_to_post(request, post)
@@ -63,9 +70,7 @@ def add_comment_to_post(request, post):
             comment.post = post
             comment.user = request.user
             comment.save()
-            return redirect(
-                "post-detail", id=post.id, slug=post.slug
-            )
+            return redirect("post-detail", id=post.id, slug=post.slug)
 
 
 @login_required
@@ -76,6 +81,4 @@ def delete_comment_view(request, comment_id):
         comment.delete()
         return redirect("post-detail", id=comment.post.id, slug=comment.post.slug)
     else:
-        return redirect(
-            "post-detail", id=comment.post.id, slug=comment.post.slug
-        )
+        return redirect("post-detail", id=comment.post.id, slug=comment.post.slug)

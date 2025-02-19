@@ -85,7 +85,7 @@
     {% endfor %}
 
     <!-- Comment Form -->
-    <form class="mb-6" action="{% url 'post-detail' post.id post.slug %}" method="post">
+    <form class="mb-6" action="{{ post.get_absolute_url }}" method="post">
       {% csrf_token %}
       <label for="id_content" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
       <textarea id="id_content" name="content" rows="4"
