@@ -11,7 +11,7 @@
 
     <!-- Comments List -->
     {% for comment in comments %}
-    {% include "blog/partials/edit-comment.html" with comment=comment %}
+    {% include "blog/partials/edit_comment.html" with comment=comment %}
     <section class="text-base rounded-lg dark:bg-gray-900 mb-4">
       <footer class="flex justify-between items-center mb-2">
         <div class="flex items-start gap-4">
@@ -87,7 +87,7 @@
       {% endfor %}
 
       <!-- Comment Form -->
-      <form class="mb-6" action="{% url 'create_comment' post_id=post.id %}" method="post">
+      <form class="mb-6" action="{% url 'create-comment' post_id=post.id %}" method="post">
         {% csrf_token %}
         <label for="id_content" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
           message</label>
