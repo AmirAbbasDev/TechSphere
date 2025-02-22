@@ -40,70 +40,45 @@ def generate_slug_from_title(form, post):
     post.slug = slug.lower()
 
 
-
-def article_detail_view(request, id, slug):
-    post = get_object_or_404(Post, id=id, slug=slug)
-    comments = Comment.objects.filter(post=post).order_by("-created_at")
+def article_detail_view(request, year, month, day, post):
+    post = get_object_or_404(
+        Post,
+        status=Post.Status.PUBLISHED,
+        slug=post,
+        publish__year=year,
+        publish__month=month,
+        publish__day=day,
+    )
     form = CommentForm()
+    comments = Comment.objects.filter(post=post)
+    add_comment_to_post(request, post)
+    context = {
+        "form": form,
+        "comments": comments,
+        "post": post,
+    }
+    return render(request, "blog/post_detail.html", context)
 
+
+def add_comment_to_post(request, post):
     if request.method == "POST":
         if not request.user.is_authenticated:
-            return redirect("login")
-
+            return redirect(reverse("login"))
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
             comment.user = request.user
             comment.save()
-            return redirect("post_detail", id=id, slug=slug)
-
-    return render(request, "blog/post_detail.html", {"post": post, "comments": comments, "form": form})
-
-@login_required
-def add_comment_to_post_view(request, post_id):
-    if request.method == "POST":
-        post = get_object_or_404(Post, id=post_id)
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.user = request.user
-            comment.save()
-            # return redirect("post-detail", slug=post.slug)
-            return redirect("post_detail", id=post.id, slug=post.slug)
-
-
+            return redirect("post-detail", id=post.id, slug=post.slug)
 
 
 @login_required
 def delete_comment_view(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
 
-    # Ensure the logged-in user owns the comment
-    if request.user == comment.user:
-        post = comment.post  # Assign post before using it
+    if request.user == comment.user or request.user.is_staff:
         comment.delete()
-        return redirect("post_detail", id=post.id, slug=post.slug)
-    
-    return redirect("post_detail", id=comment.post.id, slug=comment.post.slug)
-
-
-
-@login_required
-def update_comment(request, comment_id):
-    comment = get_object_or_404(Comment, id=comment_id)
-
-    # Ensure the logged-in user owns the comment
-    if request.user != comment.user:
-        return redirect("post_detail", id=comment.post.id, slug=comment.post.slug)
-
-    if request.method == "POST":
-        form = CommentForm(request.POST, instance=comment)
-        if form.is_valid():
-            form.save()
-            return redirect("post_detail", id=comment.post.id, slug=comment.post.slug)
+        return redirect("post-detail", id=comment.post.id, slug=comment.post.slug)
     else:
-        form = CommentForm(instance=comment)
-
-    return render(request, "blog/partials/update_comment.html", {"form": form, "comment": comment})
+        return redirect("post-detail", id=comment.post.id, slug=comment.post.slug)
