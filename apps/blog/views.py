@@ -51,7 +51,7 @@ def article_detail_view(request, year, month, day, post):
     )
     form = CommentForm()
     comments = Comment.objects.filter(post=post)
-    add_comment_to_post(request, post)
+    # add_comment_to_post(request, post)
     context = {
         "form": form,
         "comments": comments,
@@ -60,17 +60,17 @@ def article_detail_view(request, year, month, day, post):
     return render(request, "blog/post_detail.html", context)
 
 
-def add_comment_to_post(request, post):
+@login_required
+def add_comment_to_post_view(request, post_id):
     if request.method == "POST":
-        if not request.user.is_authenticated:
-            return redirect(reverse("login"))
+        post = get_object_or_404(Post, id=post_id)
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
             comment.user = request.user
             comment.save()
-            return redirect("post-detail", id=post.id, slug=post.slug)
+            return redirect(post.get_absolute_url())
 
 
 @login_required
@@ -79,6 +79,26 @@ def delete_comment_view(request, comment_id):
 
     if request.user == comment.user or request.user.is_staff:
         comment.delete()
-        return redirect("post-detail", id=comment.post.id, slug=comment.post.slug)
+        return redirect(
+            reverse(
+                "post-detail",
+                args=[
+                    comment.post.publish.year,
+                    comment.post.publish.month,
+                    comment.post.publish.day,
+                    comment.post.slug,
+                ],
+            )
+        )
     else:
-        return redirect("post-detail", id=comment.post.id, slug=comment.post.slug)
+        return redirect(
+            reverse(
+                "post-detail",
+                args=[
+                    comment.post.publish.year,
+                    comment.post.publish.month,
+                    comment.post.publish.day,
+                    comment.post.slug,
+                ],
+            )
+        )

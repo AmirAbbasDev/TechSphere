@@ -10,6 +10,11 @@ urlpatterns = [
     ),
     path("create-post/", views.create_post_view, name="create-post"),
     path(
+        "create-comment/<int:post_id>",
+        views.add_comment_to_post_view,
+        name="create-comment",
+    ),
+    path(
         "delete-comment/<int:comment_id>/",
         views.delete_comment_view,
         name="delete-comment",
