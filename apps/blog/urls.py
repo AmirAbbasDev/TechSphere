@@ -19,4 +19,9 @@ urlpatterns = [
         views.delete_comment_view,
         name="delete-comment",
     ),
+    path(
+        "update-comment/<int:comment_id>",
+        views.comment_update_view,
+        name="update-comment",
+    ),
 ]

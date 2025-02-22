@@ -11,7 +11,8 @@
 
     <!-- Comments List -->
     {% for comment in comments %}
-    <article class="text-base rounded-lg dark:bg-gray-900 mb-4">
+    {% include "blog/partials/edit-comment.html" with comment=comment %}
+    <section class="text-base rounded-lg dark:bg-gray-900 mb-4">
       <footer class="flex justify-between items-center mb-2">
         <div class="flex items-start gap-4">
           <img class="w-10 h-10 rounded-full object-cover"
@@ -43,12 +44,13 @@
 
         <!-- Dropdown Menu Content -->
         <div id="dropdownComment{{ comment.id }}"
-          class="hidden z-50 w-36 rounded-md divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-          <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+          class="hidden z-[999] w-36 rounded-md divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+          <ul class="py-1 text-sm text-gray-700 dark:text-gray-200 list-none flex flex-col min-w-full">
             {% if request.user.is_staff or request.user.id == comment.user.id %}
             <li>
-              <a href="#"
-                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+              <button data-modal-target="edit-comment-{{ comment.id }}"
+                data-modal-toggle="edit-comment-{{ comment.id }}"
+                class="block py-2 px-4 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</button>
             </li>
             <li>
               <form action="{% url 'delete-comment' comment.id %}" method="post">
@@ -59,8 +61,8 @@
             </li>
             {% endif %}
             <li>
-              <a href="#"
-                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
+              <button
+                class="block py-2 px-4 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</button>
             </li>
           </ul>
         </div>
@@ -80,21 +82,22 @@
           </svg>Reply
         </button>
       </div>
-    </article>
-    <hr class="py-2" />
-    {% endfor %}
+      </>
+      <hr class="py-2" />
+      {% endfor %}
 
-    <!-- Comment Form -->
-    <form class="mb-6" action="{% url 'create-comment' post_id=post.id %}" method="post">
-      {% csrf_token %}
-      <label for="id_content" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
-      <textarea id="id_content" name="content" rows="4"
-        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Write your comment here..." required></textarea>
-      <button type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4">
-        Post Comment
-      </button>
-    </form>
+      <!-- Comment Form -->
+      <form class="mb-6" action="{% url 'create-comment' post_id=post.id %}" method="post">
+        {% csrf_token %}
+        <label for="id_content" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+          message</label>
+        <textarea id="id_content" name="content" rows="4"
+          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Write your comment here..." required></textarea>
+        <button type="submit"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4">
+          Post Comment
+        </button>
+      </form>
   </div>
 </section>

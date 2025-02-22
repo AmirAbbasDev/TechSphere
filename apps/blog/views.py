@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.generic import ListView
 
-from blog.forms import CommentForm, PostForm
+from blog.forms import CommentForm, PostForm, CommentUpdateForm
 
 from .models import Comment, Post
 
@@ -50,10 +50,12 @@ def article_detail_view(request, year, month, day, post):
         publish__day=day,
     )
     form = CommentForm()
+    comment_update_form = CommentUpdateForm()
     comments = Comment.objects.filter(post=post)
     # add_comment_to_post(request, post)
     context = {
         "form": form,
+        "commentupdateform": comment_update_form,
         "comments": comments,
         "post": post,
     }
@@ -76,29 +78,32 @@ def add_comment_to_post_view(request, post_id):
 @login_required
 def delete_comment_view(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
+    url_parms = [
+        comment.post.publish.year,
+        comment.post.publish.month,
+        comment.post.publish.day,
+        comment.post.slug,
+    ]
 
     if request.user == comment.user or request.user.is_staff:
         comment.delete()
-        return redirect(
-            reverse(
-                "post-detail",
-                args=[
-                    comment.post.publish.year,
-                    comment.post.publish.month,
-                    comment.post.publish.day,
-                    comment.post.slug,
-                ],
-            )
-        )
+        return redirect(reverse("post-detail", args=url_parms))
     else:
-        return redirect(
-            reverse(
-                "post-detail",
-                args=[
-                    comment.post.publish.year,
-                    comment.post.publish.month,
-                    comment.post.publish.day,
-                    comment.post.slug,
-                ],
-            )
-        )
+        return redirect(reverse("post-detail", args=url_parms))
+
+
+@login_required
+def comment_update_view(request, comment_id):
+    if request.method == "POST":
+        comment = get_object_or_404(Comment, id=comment_id)
+        form = CommentUpdateForm(request.POST)
+        url_parms = [
+            comment.post.publish.year,
+            comment.post.publish.month,
+            comment.post.publish.day,
+            comment.post.slug,
+        ]
+        if form.is_valid():
+            comment.content = form.cleaned_data["content"]
+            comment.save()
+            return redirect(reverse("post-detail", args=url_parms))
