@@ -87,7 +87,7 @@
       {% endfor %}
 
       <!-- Comment Form -->
-      <form class="mb-6" action="{% url 'create-comment' post_id=post.id %}" method="post">
+      <form class="mb-6" action="{% url 'create_comment' post_id=post.id %}" method="post">
         {% csrf_token %}
         <label for="id_content" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
           message</label>
