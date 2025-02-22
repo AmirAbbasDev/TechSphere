@@ -6,8 +6,6 @@ from django_ckeditor_5.fields import CKEditor5Field
 
 
 # creating model manager
-
-
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(status=Post.Status.PUBLISHED)
@@ -45,15 +43,11 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    # def get_absolute_url(self):
-    #     return reverse(
-    #         "post-detail",
-    #         args=[self.publish.year, self.publish.month, self.publish.day, self.slug],
-    #     )
-
     def get_absolute_url(self):
-        return reverse("post_detail", kwargs={"id": self.id, "slug": self.slug})
-
+        return reverse(
+            "post-detail",
+            args=[self.publish.year, self.publish.month, self.publish.day, self.slug],
+        )
 
 
 class Comment(models.Model):
