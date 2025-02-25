@@ -26,8 +26,9 @@
         {% if request.user.is_authenticated %}
         <a href="{% url 'create-post' %}" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Create a
           Post</a>
-        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-          class="px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700">Logout</button>
+        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal">
+          <i class="ri-logout-box-r-line text-3xl text-red-600 hover:text-red-700"></i>
+        </button>
 
         <div id="popup-modal" tabindex="-1"
           class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">

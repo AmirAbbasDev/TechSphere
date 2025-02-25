@@ -24,4 +24,5 @@ urlpatterns = [
         views.comment_update_view,
         name="update-comment",
     ),
+    path("<int:post_id>/share/", views.post_share_view, name="post-share"),
 ]

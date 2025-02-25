@@ -4,8 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.generic import ListView
+from django.conf import settings
+from django.utils.translation import gettext_lazy as _
+from django.core.mail import EmailMessage
 
-from blog.forms import CommentForm, PostForm, CommentUpdateForm
+from blog.forms import CommentForm, PostForm, CommentUpdateForm, EmailPostForm
 
 from .models import Comment, Post
 
@@ -107,3 +110,33 @@ def comment_update_view(request, comment_id):
             comment.content = form.cleaned_data["content"]
             comment.save()
             return redirect(reverse("post-detail", args=url_parms))
+
+
+def post_share_view(request, post_id):
+    post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
+    sent = False
+    if request.method == "POST":
+        form = EmailPostForm(request.POST)
+        if form.is_valid():
+            clean_data = form.cleaned_data
+            post_url = request.build_absolute_uri(post.get_absolute_url())
+            subject = _(
+                f"{clean_data['name']} ({clean_data['email']})"
+                f"recommends you read {post.title}"
+            )
+            email_body = _(
+                f"Read {post.title} at {post_url}\n\n"
+                f"{clean_data['name']}'s comments: {clean_data['comments']}"
+            )
+            email_message = EmailMessage(
+                subject,
+                email_body,
+                settings.EMAIL_HOST_USER,
+                [clean_data["to"]],
+            )
+            email_message.send(fail_silently=True)
+            return redirect(post.get_absolute_url())
+    else:
+        form = EmailPostForm()
+    context = {"post": post, "form": form, "sent": sent}
+    return render(request, "blog/post/share.html", context)

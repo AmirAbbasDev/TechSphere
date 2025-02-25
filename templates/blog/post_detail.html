@@ -23,6 +23,10 @@
   <article id="blog-content" class="mt-6 text-gray-700 leading-relaxed">
     {{ post.content|safe }}
   </article>
+  <a href="{% url 'post-share' post_id=post.id %}"
+    class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 float-right ">Share Now<i
+      class="ri-share-forward-line text-xl"></i></a>
+
 
   <!-- Related Posts -->
   <div class="mt-10">
