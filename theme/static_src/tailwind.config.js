@@ -52,7 +52,7 @@ module.exports = {
          * comment the line below to disable '@tailwindcss/forms'.
          */
         require('@tailwindcss/forms'),
-        require('@tailwindcss/typography'),
+        require("@tailwindcss/typography"),
         require('@tailwindcss/aspect-ratio'),
         require('flowbite/plugin')
     ],

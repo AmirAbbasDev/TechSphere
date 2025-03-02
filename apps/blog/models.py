@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django_ckeditor_5.fields import CKEditor5Field
+from taggit.managers import TaggableManager
 
 
 # creating model manager
@@ -33,6 +34,7 @@ class Post(models.Model):
     status = models.CharField(max_length=2, choices=Status, default=Status.DRAFT)
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Our custom manager.
+    tags = TaggableManager()
 
     class Meta:
         ordering = ["-publish"]

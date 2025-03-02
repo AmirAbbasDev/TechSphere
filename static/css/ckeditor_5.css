@@ -1,12 +1,26 @@
+/* Root Variables for Easy Customization */
+:root {
+    --primary-color: #25265e;
+    --primary-text: rgba(37, 38, 94, 0.7);
+    --secondary-text: #374151;
+    --dark-mode-bg: #111827;
+    --dark-mode-text: #9ca3af;
+    --highlight-color: #3B82F6;
+    --code-bg: #383b40;
+    --code-text: #3fd36b;
+    --border-color: #E5E7EB;
+}
+
+/* Typography Enhancements */
 article h1,
 article h2,
 article h3,
 article h4,
 article h5,
 article h6 {
-    color: #25265e;
-    /* color: #fff; */
-    letter-spacing: 2px;
+    color: var(--primary-color);
+    letter-spacing: 1.5px;
+    font-weight: 600;
 }
 
 .dark-mode article h1,
@@ -18,52 +32,45 @@ article h6 {
     color: #fff;
 }
 
+/* Headings */
 article h1 {
-    margin-bottom: 20px;
-    font-size: 40px;
-    line-height: 44px;/
+    font-size: 2.5rem; /* 40px */
+    line-height: 1.2;
+    margin-bottom: 1.25rem; /* 20px */
 }
 
 article h2 {
-    font-size: 28px;
-    line-height: 42px;
-    margin-bottom: 12px;
+    font-size: 2rem; /* 32px */
+    line-height: 1.4;
+    margin-bottom: 1rem; /* 16px */
 }
 
-article h3,
+article h3 {
+    font-size: 1.75rem; /* 28px */
+}
+
 article h4 {
-    font-size: 1.875rem;
-    /* text-3xl */
+    font-size: 1.5rem; /* 24px */
 }
 
 article h5 {
-    font-size: 1.25rem;
-    /* text-xl */
+    font-size: 1.25rem; /* 20px */
 }
 
 article h6 {
-    font-size: 1.125rem;
-    /* text-lg */
+    font-size: 1.125rem; /* 18px */
 }
 
-article ol,
-article li,
+/* Paragraphs and Text */
 article p {
-    color: rgba(37, 38, 94, .7);
-    /* color: #fff; */
-    letter-spacing: 1.5px;
-}
-
-/* Paragraph */
-article p {
-    font-size: 18px;
-    line-height: 30px;
-    margin-bottom: 16px;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.7;
+    color: var(--primary-text);
+    margin-bottom: 1rem;
 }
 
 .dark-mode article p {
-    color: #9ca3af;
-    /* dark:text-gray-400 */
+    color: var(--dark-mode-text);
 }
 
 /* Lists */
@@ -88,11 +95,11 @@ article li {
 
 /* Blockquotes */
 article blockquote {
-    border-left: 4px solid #3B82F6;
+    border-left: 4px solid var(--highlight-color);
     padding-left: 1.5rem;
     margin: 1.5rem 0;
     font-style: italic;
-    color: #4B5563;
+    color: var(--secondary-text);
 }
 
 /* Tables */
@@ -106,7 +113,7 @@ article table {
 
 article th,
 article td {
-    border: 1px solid #E5E7EB;
+    border: 1px solid var(--border-color);
     padding: 0.75rem;
     text-align: left;
 }
@@ -114,31 +121,30 @@ article td {
 article th {
     background-color: #F9FAFB;
     font-weight: 600;
-    color: #25265e;
+    color: var(--primary-color);
 }
 
 article td {
-    color: #374151;
+    color: var(--secondary-text);
 }
 
-
+/* Code Blocks */
 article pre {
-    background-color: #383b40;
+    background-color: var(--code-bg);
     color: #fff;
     padding: 1rem;
     border-radius: 0.375rem;
     overflow: auto;
-    border: 1px solid #4b5563;
+    border: 1px solid var(--secondary-text);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
 article code {
     font-family: monospace;
-    color: #3fd36b;
-    font-size: 18px;
-    line-height: 30px;
-    margin-bottom: 16px;
+    color: var(--code-text);
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 /* Figures and Images */
@@ -157,13 +163,13 @@ article img {
 /* Horizontal Rule */
 article hr {
     border: 0;
-    border-top: 1px solid #E5E7EB;
+    border-top: 1px solid var(--border-color);
     margin: 2rem 0;
 }
 
 /* Links */
 article a {
-    color: #3B82F6;
+    color: var(--highlight-color);
     text-decoration: none;
     font-weight: 500;
 }
@@ -175,19 +181,6 @@ article a:hover {
 
 article a:visited {
     color: #7C3AED;
-}
-
-@media (min-width: 768px) {
-    article h1 {
-        font-size: 40px;
-        line-height: 60px;
-
-    }
-
-    article h2 {
-        font-size: 32px;
-        line-height: 44px;
-    }
 }
 
 /* Responsive Adjustments */
@@ -213,6 +206,7 @@ article a:visited {
     }
 
     article code {
-        font-size: 0.75rem;
+        font-size: 0.875rem;
     }
 }
+

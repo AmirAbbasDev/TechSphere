@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "taggit",
+    "django_social_share",
     "django_ckeditor_5",
     "tailwind",
     "theme",

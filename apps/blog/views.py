@@ -1,6 +1,7 @@
 import re
 
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.generic import ListView
@@ -65,6 +66,7 @@ def article_detail_view(request, year, month, day, post):
     return render(request, "blog/post_detail.html", context)
 
 
+@require_POST
 @login_required
 def add_comment_to_post_view(request, post_id):
     if request.method == "POST":
@@ -112,6 +114,7 @@ def comment_update_view(request, comment_id):
             return redirect(reverse("post-detail", args=url_parms))
 
 
+@require_POST
 def post_share_view(request, post_id):
     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
     sent = False
