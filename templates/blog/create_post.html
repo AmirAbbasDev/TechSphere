@@ -14,6 +14,14 @@
     <input type="text" id="id_title" name="title" class="form-input" placeholder="Post title..." required />
   </div>
 
+  <div>
+    <label for="id_tags" class="form-label">Tags</label>
+    <input type="text" name="tags" aria-describedby="id_tags_helptext" id="id_tags"
+    autocomplete="off" class="form-input" placeholder="Async, Python" required />
+    <div class="help" id="id_tags_helptext">
+      <div>A comma-separated list of tags.</div>
+    </div>
+  </div>
   <!-- Blog Body (CKEditor) -->
   <div>
     <label for="id_body" class="form-label">Blog Body</label>

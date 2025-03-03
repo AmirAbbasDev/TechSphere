@@ -31,6 +31,7 @@ def create_post_view(request):
             generate_slug_from_title(form, post)
             post.author = request.user
             post.save()
+            form.save_m2m()
             return redirect(reverse("home"))
     else:
         form = PostForm()
