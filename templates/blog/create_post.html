@@ -5,7 +5,7 @@
 
 {% block content %}
 {{ form.media }}
-<form class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 space-y-5" action="{% url 'create-post' %}" method="post">
+<form class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-60 my-6 space-y-5" action="{% url 'create-post' %}" method="post">
   {% csrf_token %}
 
   <!-- Blog Title -->
@@ -14,11 +14,19 @@
     <input type="text" id="id_title" name="title" class="form-input" placeholder="Post title..." required />
   </div>
 
+  <div>
+    <label for="id_tags" class="form-label">Tags</label>
+    <input type="text" name="tags" aria-describedby="id_tags_helptext" id="id_tags"
+    autocomplete="off" class="form-input" placeholder="Async, Python" required />
+    <div class="help" id="id_tags_helptext">
+      <div class="form-label">A comma-separated list of tags.</div>
+    </div>
+  </div>
   <!-- Blog Body (CKEditor) -->
   <div>
-    <label for="id_body" class="form-label">Blog Body</label>
+    <!-- <label for="id_body" class="form-label">Blog Body</label> -->
     {{ form.content }}
-    <span class="word-count" id="id_body_script-word-count"></span>
+    <span class="word-count text-gray-500 dark:text-gray-400" id="id_body_script-word-count"></span>
   </div>
 
   <!-- Hidden CKEditor Upload Config -->

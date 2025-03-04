@@ -1,19 +1,19 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
-# from django.contrib.auth.models import User
 from django.conf import settings
 from django_ckeditor_5.fields import CKEditor5Field
 from django.contrib.auth.models import AbstractUser
+from taggit.managers import TaggableManager
 
 
-# creating model manager
+# Creating model manager
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(status=Post.Status.PUBLISHED)
 
 
-# data model for the blog posts
+# Data model for the blog posts
 class Post(models.Model):
     class Status(models.TextChoices):
         DRAFT = "DF", "Draft"
@@ -32,9 +32,10 @@ class Post(models.Model):
     publish = models.DateTimeField(default=timezone.now)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=2, choices=Status, default=Status.DRAFT)
+    status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Our custom manager.
+    tags = TaggableManager()
 
     class Meta:
         ordering = ["-publish"]
@@ -67,8 +68,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.user} on {self.post.title}"
-
-
 
 
 class CustomUser(AbstractUser):  
