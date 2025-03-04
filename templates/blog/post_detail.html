@@ -3,7 +3,7 @@
 
 {% block title %}{{ post.title }}{% endblock %}
 
-{% block content %}
+{% block main %}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
   <!-- Meta Info -->
   <div class="text-[#25265e] mt-2">
@@ -11,10 +11,14 @@
   </div>
     <article id="blog-content" class="prose lg:prose-xl mx-auto">
       <h1>{{ post.title }}</h1>
-      <p>Tags: {{ post.tags.all|join:", "}}</p>
-    <!-- {% for tag in post.tags.all %}
-    <a href="">#{{ tag }}    </a>
-    {% endfor %} -->
+      <p class="tags">
+        Tags:
+        {% for tag in post.tags.all %}
+        <a href="{% url "post_list_by_tag" tag.slug %}">
+        {{ tag.name }}
+        </a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+        </p>
     {{ post.content|safe }}
   </article>
 {% include "blog/partials/post_share.html"%}
@@ -30,4 +34,31 @@
   </div>
   {% include 'blog/partials/comments.html' %}
 </div>
-{% endblock content %}
+{% endblock %}
+
+{% block sidebar %}
+<h2 class="text-xl font-bold text-gray-800 mb-4">Categories</h2>
+<ul class="space-y-2">
+  <li>
+    <a href="#" class="text-blue-600 hover:underline">Web Development</a>
+  </li>
+  <li>
+    <a href="#" class="text-blue-600 hover:underline">Django & Python</a>
+  </li>
+  <li>
+    <a href="#" class="text-blue-600 hover:underline">Tailwind CSS</a>
+  </li>
+  <li>
+    <a href="#" class="text-blue-600 hover:underline">SEO & Marketing</a>
+  </li>
+</ul>
+
+<h2 class="text-xl font-bold text-gray-800 mt-6 mb-4">Popular Posts</h2>
+<ul class="space-y-3">
+{% for post in posts %}
+  <li class="border-b pb-2">
+    <a href="{{ post.get_absolute_url }}" class="text-blue-500 font-semibold hover:underline">{{ post.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

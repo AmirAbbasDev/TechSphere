@@ -8,18 +8,32 @@ from django.views.generic import ListView
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import EmailMessage
-
+# from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from blog.forms import CommentForm, PostForm, CommentUpdateForm, EmailPostForm
-
 from .models import Comment, Post
-
+from taggit.models import Tag
 
 class PostListView(ListView):
     model = Post
     template_name = "blog/index.html"
     context_object_name = "posts"
     paginate_by = 3
-    queryset = Post.published.all()
+
+    def get_queryset(self):
+        queryset = Post.published.all()
+        tag_slug = self.kwargs.get("tag_slug")
+
+        if tag_slug:
+            tag = get_object_or_404(Tag, slug=tag_slug)
+            queryset = queryset.filter(tags__in=[tag])
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tag_slug = self.kwargs.get("tag_slug")
+        context["tag"] = get_object_or_404(Tag, slug=tag_slug) if tag_slug else None
+        return context
 
 
 @login_required
