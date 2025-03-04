@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from .views import profile_view, edit_profile_view
 urlpatterns = [
     path("", views.PostListView.as_view(), name="home"),
     path(
@@ -24,4 +24,7 @@ urlpatterns = [
         views.comment_update_view,
         name="update-comment",
     ),
+    
+    path('profile/', profile_view, name='profile'),
+    path('profile/edit/', edit_profile_view, name='edit_profile'),
 ]

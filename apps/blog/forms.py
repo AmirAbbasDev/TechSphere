@@ -2,6 +2,11 @@ from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
 from apps.blog.models import Post, Comment
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model() 
+
+
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -27,3 +32,13 @@ class EmailPostForm(forms.Form):
 
 class CommentUpdateForm(forms.Form):
     content = forms.CharField(required=False, widget=forms.Textarea)
+    
+    
+
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['bio', 'profile_picture', 'location']
+
+

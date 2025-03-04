@@ -5,7 +5,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.generic import ListView
 
-from blog.forms import CommentForm, PostForm, CommentUpdateForm
+
+from blog.forms import CommentForm, PostForm, CommentUpdateForm, EditProfileForm
+from django.contrib import messages
 
 from .models import Comment, Post
 
@@ -107,3 +109,27 @@ def comment_update_view(request, comment_id):
             comment.content = form.cleaned_data["content"]
             comment.save()
             return redirect(reverse("post-detail", args=url_parms))
+        
+
+
+@login_required
+def profile_view(request):
+    user = request.user  
+    return render(request, 'blog/partials/profile.html', {'user': user}) 
+
+
+
+def edit_profile_view(request):
+    user = request.user  
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your profile has been updated successfully!")
+            return redirect('profile') 
+    else:
+        form = EditProfileForm(instance=user) 
+
+    return render(request, 'blog/partials/edit_profile.html', {'form': form})
+
+

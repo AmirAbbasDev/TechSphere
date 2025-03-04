@@ -3,6 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
@@ -29,3 +33,13 @@ class RegisterForm(UserCreationForm):
             raise ValidationError(
                 "Password must be at least 8 characters long.")
         return password
+    
+ 
+
+class CustomUserForm(forms.ModelForm):
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exists(): 
+            raise forms.ValidationError("Username already exists.")
+        return username
+

@@ -1,0 +1,13 @@
+
+
+<h2>{{ user.username }}'s Profile</h2>
+<img src="{{ user.profile_picture.url }}" alt="Profile Picture" width="100">
+<p><strong>Username:</strong> {{ user.username }}</p>
+<p><strong>Email:</strong> {{ user.email }}</p>
+<p><strong>Bio:</strong> {{ user.bio }}</p>
+<p><strong>Location:</strong> {{ user.location }}</p>
+
+<a href="{% url 'edit_profile' %}">
+    <button>Edit Profile</button>
+</a>
+

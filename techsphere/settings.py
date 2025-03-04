@@ -18,6 +18,9 @@ import sys
 from dotenv import load_dotenv
 from .ckeditor_5_config import *
 
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(os.path.join(BASE_DIR, "apps"))
@@ -33,6 +36,10 @@ SECRET_KEY = "django-insecure-716-s97t2!nxscy4uex%_787n=ejcy4od=iwqf+zg*5n(dgd0q
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+
+
+AUTH_USER_MODEL = 'blog.CustomUser'
+
 
 
 # Application definition
@@ -87,25 +94,25 @@ WSGI_APPLICATION = "techsphere.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-# POSTGRESQL
-load_dotenv()
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_USER_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+# POSTGRESQL
+# load_dotenv()
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.environ.get("DB_NAME"),
+#         "USER": os.environ.get("DB_USER"),
+#         "PASSWORD": os.environ.get("DB_USER_PASSWORD"),
+#         "HOST": os.environ.get("DB_HOST"),
+#         "PORT": os.environ.get("DB_PORT"),
+#     }
+# }
 
 
 # Password validation
